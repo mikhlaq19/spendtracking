@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy — Spendly{% endblock %}
+
+{% block content %}
+
+<section class="legal-header">
+    <div class="legal-header-inner">
+        <div class="hero-badge">Legal</div>
+        <h1 class="hero-title">Privacy<br><em>Policy</em></h1>
+        <p class="hero-subtitle">Last updated: April 2026</p>
+    </div>
+</section>
+
+<section class="legal-body">
+    <div class="legal-content">
+
+        <div class="legal-section">
+            <h2 class="legal-heading">1. Data We Collect</h2>
+            <p class="legal-text">When you create an account we collect your email address and a hashed password. As you use Spendly we store the expense records you enter, including amounts, categories, dates, and any descriptions you provide.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2 class="legal-heading">2. How We Use Your Data</h2>
+            <p class="legal-text">Your data is used solely to provide the Spendly service — displaying your expense history, generating summaries, and enabling filters. We do not use your data for advertising, profiling, or any purpose beyond operating the app.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2 class="legal-heading">3. Data Storage</h2>
+            <p class="legal-text">Your data is stored securely on our servers. Passwords are never stored in plain text. We retain your data for as long as your account is active. You may request deletion of your account and all associated data at any time by contacting us.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2 class="legal-heading">4. Third-Party Services</h2>
+            <p class="legal-text">Spendly does not sell or share your personal data with third parties. We may use infrastructure providers (such as hosting services) to operate the app; these providers are bound by confidentiality obligations and may not use your data independently.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2 class="legal-heading">5. Contact Us</h2>
+            <p class="legal-text">If you have questions about this Privacy Policy or wish to request data deletion, please reach out to us at <a href="mailto:privacy@spendly.app" style="color: var(--accent);">privacy@spendly.app</a>. We aim to respond within 5 business days.</p>
+        </div>
+
+        <a href="{{ url_for('landing') }}" class="btn-ghost legal-back">← Back to home</a>
+
+    </div>
+</section>
+
+{% endblock %}
