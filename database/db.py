@@ -85,3 +85,13 @@ def create_user(name, email, password_hash):
     user_id = cursor.lastrowid
     conn.close()
     return user_id
+
+
+def get_user_by_email(email):
+    conn = get_db()
+    user = conn.execute(
+        "SELECT * FROM users WHERE LOWER(email) = LOWER(?)",
+        (email,)
+    ).fetchone()
+    conn.close()
+    return user
