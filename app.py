@@ -1,12 +1,21 @@
 import sqlite3
+from datetime import datetime
 
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, abort
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from database.db import get_db, init_db, seed_db, create_user, get_user_by_email
+from database.db import get_db, init_db, seed_db, create_user, get_user_by_email, get_user_by_id, get_expenses_by_user
 
 app = Flask(__name__)
 app.secret_key = "dev-secret-change-in-prod"
+
+
+@app.template_filter('fmt_date')
+def fmt_date_filter(value):
+    try:
+        return datetime.strptime(value, "%Y-%m-%d").strftime("%d %b %Y")
+    except (ValueError, TypeError):
+        return value
 
 with app.app_context():
     init_db()
@@ -122,7 +131,33 @@ def logout():
 
 @app.route("/profile")
 def profile():
-    return "Profile page — coming in Step 4"
+    if not session.get("user_id"):
+        return redirect(url_for("login"))
+
+    user = get_user_by_id(session["user_id"])
+    if user is None:
+        abort(404)
+
+    expenses = get_expenses_by_user(session["user_id"])
+    total_spend = sum(e["amount"] for e in expenses) if expenses else 0.0
+    member_since = datetime.strptime(user["created_at"][:10], "%Y-%m-%d").strftime("%B %Y")
+
+    cat_totals_map = {}
+    for e in expenses:
+        cat = e["category"]
+        cat_totals_map[cat] = cat_totals_map.get(cat, 0.0) + e["amount"]
+    category_totals = sorted(cat_totals_map.items(), key=lambda x: x[1], reverse=True)
+    top_category = category_totals[0][0] if category_totals else "—"
+
+    return render_template(
+        "profile.html",
+        user=user,
+        expenses=expenses,
+        total_spend=total_spend,
+        member_since=member_since,
+        category_totals=category_totals,
+        top_category=top_category,
+    )
 
 
 @app.route("/expenses/add")
