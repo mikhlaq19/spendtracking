@@ -1,0 +1,318 @@
+/* ------------------------------------------------------------------ */
+/* Profile page                                                         */
+/* ------------------------------------------------------------------ */
+
+.profile-page {
+    padding-bottom: 5rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Profile hero strip                                                   */
+/* ------------------------------------------------------------------ */
+
+.profile-hero {
+    background: var(--paper-warm);
+    border-bottom: 1px solid var(--border);
+    padding: 3rem 2rem;
+}
+
+.profile-hero-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.profile-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--paper-card);
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.profile-name {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
+}
+
+.profile-email {
+    font-size: 0.95rem;
+    color: var(--ink-muted);
+    margin-bottom: 0.2rem;
+}
+
+.profile-since {
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    font-weight: 500;
+    letter-spacing: 0.03em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Summary stats (3-card row)                                           */
+/* ------------------------------------------------------------------ */
+
+.profile-stats {
+    padding: 2rem 2rem 0;
+}
+
+.profile-stats-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.stat-card {
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.stat-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--ink-muted);
+}
+
+.stat-value {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--ink);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+.stat-value--category {
+    font-size: 1.6rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Two-column main layout                                               */
+/* ------------------------------------------------------------------ */
+
+.profile-main-section {
+    padding: 2rem;
+}
+
+.profile-main-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+/* ------------------------------------------------------------------ */
+/* Transactions card                                                    */
+/* ------------------------------------------------------------------ */
+
+.transactions-card {
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.75rem 2rem;
+}
+
+.transactions-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.transactions-title {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    color: var(--ink);
+}
+
+/* ------------------------------------------------------------------ */
+/* Expenses table                                                       */
+/* ------------------------------------------------------------------ */
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+.expenses-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.expenses-table thead {
+    border-bottom: 1px solid var(--border);
+}
+
+.expenses-table th {
+    padding: 0.6rem 1rem;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--ink-muted);
+}
+
+.expenses-table td {
+    padding: 0.85rem 1rem;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.expenses-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.expenses-table tbody tr:hover {
+    background: var(--paper);
+}
+
+.col-date {
+    white-space: nowrap;
+    color: var(--ink-muted);
+    font-size: 0.85rem;
+    min-width: 100px;
+}
+
+.col-amount {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+    color: var(--ink);
+}
+
+/* ------------------------------------------------------------------ */
+/* Category badges                                                      */
+/* ------------------------------------------------------------------ */
+
+.category-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+}
+
+.cat-food          { background: var(--accent-light);   color: var(--accent); }
+.cat-transport     { background: var(--orange-light);   color: var(--orange); }
+.cat-bills         { background: var(--steel-light);    color: var(--steel); }
+.cat-shopping      { background: var(--accent-2-light); color: var(--accent-2); }
+.cat-health        { background: var(--danger-light);   color: var(--danger); }
+.cat-entertainment { background: var(--mauve-light);    color: var(--mauve); }
+.cat-other         { background: var(--border-soft);    color: var(--ink-muted); }
+
+/* ------------------------------------------------------------------ */
+/* By Category card                                                     */
+/* ------------------------------------------------------------------ */
+
+.by-category-card {
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.75rem 2rem;
+}
+
+.by-category-title {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+}
+
+.category-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.cat-row-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.4rem;
+}
+
+.cat-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+}
+
+.cat-row-amount {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+}
+
+.cat-bar-track {
+    height: 5px;
+    background: var(--border-soft);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.cat-bar {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.6s ease;
+}
+
+/* Bar fill colors — one per category */
+.bar-food          { background: var(--accent); }
+.bar-transport     { background: var(--orange); }
+.bar-bills         { background: var(--steel); }
+.bar-shopping      { background: var(--accent-2); }
+.bar-health        { background: var(--danger); }
+.bar-entertainment { background: var(--mauve); }
+.bar-other         { background: var(--ink-faint); }
+
+/* ------------------------------------------------------------------ */
+/* Empty state                                                          */
+/* ------------------------------------------------------------------ */
+
+.empty-state {
+    padding: 3rem 1rem;
+    text-align: center;
+}
+
+.empty-state-text {
+    color: var(--ink-muted);
+    font-size: 0.95rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive                                                           */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 900px) {
+    .profile-stats-inner { grid-template-columns: repeat(2, 1fr); }
+    .profile-main-inner  { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+    .profile-hero-inner  { flex-direction: column; text-align: center; }
+    .profile-stats-inner { grid-template-columns: 1fr; }
+    .transactions-header { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+}
