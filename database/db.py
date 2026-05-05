@@ -115,3 +115,19 @@ def get_expenses_by_user(user_id):
     ).fetchall()
     conn.close()
     return expenses
+
+
+def get_expenses_by_user_filtered(user_id, start_date=None, end_date=None):
+    conn = get_db()
+    sql = "SELECT * FROM expenses WHERE user_id = ?"
+    params = [user_id]
+    if start_date:
+        sql += " AND date >= ?"
+        params.append(start_date)
+    if end_date:
+        sql += " AND date <= ?"
+        params.append(end_date)
+    sql += " ORDER BY date DESC"
+    expenses = conn.execute(sql, params).fetchall()
+    conn.close()
+    return expenses

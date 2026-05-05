@@ -1,10 +1,10 @@
 import sqlite3
-from datetime import datetime
+from datetime import datetime, date, timedelta
 
 from flask import Flask, render_template, request, redirect, url_for, session, abort
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from database.db import get_db, init_db, seed_db, create_user, get_user_by_email, get_user_by_id, get_expenses_by_user
+from database.db import get_db, init_db, seed_db, create_user, get_user_by_email, get_user_by_id, get_expenses_by_user, get_expenses_by_user_filtered
 
 app = Flask(__name__)
 app.secret_key = "dev-secret-change-in-prod"
@@ -129,6 +129,14 @@ def logout():
     return redirect(url_for("landing"))
 
 
+def _parse_date(val):
+    try:
+        datetime.strptime(val, "%Y-%m-%d")
+        return val
+    except (ValueError, TypeError):
+        return None
+
+
 @app.route("/profile")
 def profile():
     if not session.get("user_id"):
@@ -138,7 +146,32 @@ def profile():
     if user is None:
         abort(404)
 
-    expenses = get_expenses_by_user(session["user_id"])
+    today = date.today()
+    today_str = today.strftime("%Y-%m-%d")
+    period = request.args.get("period", "")
+
+    if period == "this_month":
+        from_date = today.replace(day=1).strftime("%Y-%m-%d")
+        to_date = today_str
+        active_period = "this_month"
+    elif period == "last_3_months":
+        from_date = (today - timedelta(days=90)).strftime("%Y-%m-%d")
+        to_date = today_str
+        active_period = "last_3_months"
+    elif period == "last_6_months":
+        from_date = (today - timedelta(days=180)).strftime("%Y-%m-%d")
+        to_date = today_str
+        active_period = "last_6_months"
+    else:
+        from_date = _parse_date(request.args.get("from_date", ""))
+        to_date = _parse_date(request.args.get("to_date", ""))
+        active_period = "custom" if (from_date or to_date) else "all"
+
+    if from_date or to_date:
+        expenses = get_expenses_by_user_filtered(session["user_id"], from_date, to_date)
+    else:
+        expenses = get_expenses_by_user(session["user_id"])
+
     total_spend = sum(e["amount"] for e in expenses) if expenses else 0.0
     member_since = datetime.strptime(user["created_at"][:10], "%Y-%m-%d").strftime("%B %Y")
 
@@ -157,6 +190,9 @@ def profile():
         member_since=member_since,
         category_totals=category_totals,
         top_category=top_category,
+        from_date=from_date or "",
+        to_date=to_date or "",
+        active_period=active_period,
     )
 
 
