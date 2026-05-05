@@ -19,6 +19,32 @@
         </div>
     </section>
 
+    <section class="filter-section">
+        <div class="filter-section-inner">
+            <div class="filter-presets">
+                <a class="filter-preset {% if active_period == 'all' %}filter-preset--active{% endif %}"
+                   href="{{ url_for('profile') }}">All Time</a>
+                <a class="filter-preset {% if active_period == 'this_month' %}filter-preset--active{% endif %}"
+                   href="{{ url_for('profile', period='this_month') }}">This Month</a>
+                <a class="filter-preset {% if active_period == 'last_3_months' %}filter-preset--active{% endif %}"
+                   href="{{ url_for('profile', period='last_3_months') }}">Last 3 Months</a>
+                <a class="filter-preset {% if active_period == 'last_6_months' %}filter-preset--active{% endif %}"
+                   href="{{ url_for('profile', period='last_6_months') }}">Last 6 Months</a>
+            </div>
+            <form class="filter-custom" method="GET" action="{{ url_for('profile') }}">
+                <input class="filter-input" type="date" name="from_date"
+                       value="{{ from_date if active_period == 'custom' else '' }}">
+                <span class="filter-to-label">to</span>
+                <input class="filter-input" type="date" name="to_date"
+                       value="{{ to_date if active_period == 'custom' else '' }}">
+                <button class="filter-apply" type="submit">Apply</button>
+            </form>
+            {% if active_period != 'all' %}
+            <a class="filter-clear" href="{{ url_for('profile') }}">Clear</a>
+            {% endif %}
+        </div>
+    </section>
+
     <section class="profile-stats">
         <div class="profile-stats-inner">
             <div class="stat-card">
