@@ -117,6 +117,17 @@ def get_expenses_by_user(user_id):
     return expenses
 
 
+def add_expense(user_id, amount, category, date, description):
+    conn = get_db()
+    with conn:
+        cursor = conn.execute(
+            "INSERT INTO expenses (user_id, amount, category, date, description) VALUES (?, ?, ?, ?, ?)",
+            (user_id, amount, category, date, description or None),
+        )
+    conn.close()
+    return cursor.lastrowid
+
+
 def get_expenses_by_user_filtered(user_id, start_date=None, end_date=None):
     conn = get_db()
     sql = "SELECT * FROM expenses WHERE user_id = ?"
